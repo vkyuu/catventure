@@ -3,9 +3,7 @@ body {
 }
 
 #catventurerun {
-  border: 2px solid white;
-  width: 960px;
-  margin-left: auto;
+margin-left: auto;
   margin-right: auto;
   cursor: pointer;
 }
