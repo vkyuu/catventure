@@ -3,7 +3,7 @@
 
 //global variables
 window.onload = function () {
-  var game = new Phaser.Game(960, 600, Phaser.AUTO, 'catventurerun');
+  var game = new Phaser.Game(960, 600, Phaser.CANVAS, 'catventurerun');
 
   // Game States
   game.state.add('boot', require('./states/boot'));
@@ -1209,8 +1209,8 @@ Boot.prototype = {
     this.load.image('preloader', 'assets/preloader.gif');
       //this.game.scale.minWidth = 640;
       //this.game.scale.minHeight = 480;
-      this.game.scale.maxWidth = 720;
-      this.game.scale.maxHeight = 450;
+      this.game.scale.maxWidth = 960;
+      this.game.scale.maxHeight = 600;
       this.scale.pageAlignVertically = true;
       this.game.scale.pageAlignHorizontally = true;
       this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -1532,18 +1532,6 @@ module.exports = Menu;
     },
     update: function() {
         //debug
-        this.timez += this.time.physicsElapsed;
-        this.timeE += this.time.physicsElapsed;
-        this.defendTime += this.time.physicsElapsed;
-        this.slimeSpawnTimer += this.time.physicsElapsed;
-        this.skellySpawnTimer += this.time.physicsElapsed;
-        this.game.debug.text('SlimeSpawnTimer: '+this.slimeSpawnTimer , 10 , 20);
-        this.game.debug.text(this.timeE, 550, 20);
-        this.game.debug.text('FPS: '+this.time.fps, 10, 40);
-        this.game.debug.text('SlimeGenerator: '+this.slimeGenerator.delay, 10, 60);
-        this.game.debug.text('skelly nyawa: '+skellyGroup.nyawa, 10, 80);
-        //score
-        this.game.debug.text('Game Score: '+this.gameScore, 10, 100);
         
         if(this.slimeSpawnTimer>15){
             this.slimeSpawnTimer = 0;
