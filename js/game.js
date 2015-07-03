@@ -1585,11 +1585,11 @@ module.exports = Menu;
             if(this.defendPosition){
                 //slimes
                     this.slimes.forEach(function(slimeGroup) {
-                    this.game.physics.arcade.overlap(this.shieldDef, slimeGroup, this.slimedeathShieldHandler, null, this);
+                    this.game.physics.arcade.collide(this.shieldDef, slimeGroup, this.slimedeathShieldHandler, null, this);
                     }, this);
                 //skelly
                     this.skellies.forEach(function(skellyGroup) {
-                    this.game.physics.arcade.overlap(this.shieldDef, skellyGroup, this.skellydeathShieldHandler, null, this);
+                    this.game.physics.arcade.collide(this.shieldDef, skellyGroup, this.skellydeathShieldHandler, null, this);
                     },this) 
             }
         this.debu.forEachAlive(function(p){p.alpha= p.lifespan / 900;});
@@ -1815,7 +1815,7 @@ module.exports = Menu;
                 this.slashEffect.destroy();
             }, this);
             this.sdTimer.start();
-            this.slimeTimeDelay=this.game.time.now+250;  
+            this.slimeTimeDelay=this.game.time.now+10;  
         }
     },
       skellydeathHandler: function(slash, skellyGroup) {
@@ -1905,7 +1905,7 @@ module.exports = Menu;
                 this.reTimer.start();
             }
         }
-            this.skellyTimeDelay=this.game.time.now+250;    
+            this.skellyTimeDelay=this.game.time.now+10;    
         },
     clickListener: function() {
       this.game.state.start('gameover');
