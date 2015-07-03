@@ -3,7 +3,7 @@
 
 //global variables
 window.onload = function () {
-  var game = new Phaser.Game(960, 600, Phaser.CANVAS, 'catventurerun');
+  var game = new Phaser.Game(960, 600, Phaser.AUTO, 'catventurerun');
 
   // Game States
   game.state.add('boot', require('./states/boot'));
