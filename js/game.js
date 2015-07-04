@@ -2034,7 +2034,7 @@ Preload.prototype = {
     this.load.audio('bgm2', 'assets/music/POL-miracle-park-short.wav');  
     this.load.audio('swordSlash', 'assets/music/Slash8-Bit.ogg');  
     this.load.audio('enemyDeath', 'assets/music/EnemyDeath.ogg');  
-    this.load.audio('jump', 'assets/music/jump9.wav');  
+    this.load.audio('jump', 'assets/music/Jump9.wav');  
     this.load.audio('hit', 'assets/music/Hit_Hurt.wav');  
     this.load.audio('select', 'assets/music/Confirm8-Bit.ogg');  
     this.load.audio('confirm', 'assets/music/Select8-Bit.ogg');  
