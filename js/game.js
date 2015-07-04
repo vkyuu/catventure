@@ -1582,7 +1582,7 @@ module.exports = Menu;
                 this.game.physics.arcade.collide(this.neko, obstacleGroup, this.deathHandler, null, this);
             }, this);
         //pedang collider
-            if(this.slash.animations.frame>0 && this.slash.animations.frame<16){
+            if(this.slash.animations.frame>0 && this.slash.animations.frame<18){
                 //slimes
                     this.slimes.forEach(function(slimeGroup) {
                     this.game.physics.arcade.overlap(this.slash, slimeGroup, this.slimedeathHandler, null, this);
