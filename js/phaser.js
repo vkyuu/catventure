@@ -37648,8 +37648,14 @@ Phaser.TileSprite.prototype.stopScroll = function() {
 Phaser.TileSprite.prototype.destroy = function(destroyChildren) {
 
     Phaser.Component.Destroy.prototype.destroy.call(this, destroyChildren);
-
-    PIXI.TilingSprite.prototype.destroy.call(this);
+ 
+    //PIXI.TilingSprite.prototype.destroy.call(this);
+	
+    PIXI.Sprite.prototype.destroy.call(this);
+ 
+    this.tileScale = null;
+    this.tileScaleOffset = null;
+    this.tilePosition = null;
 
 };
 

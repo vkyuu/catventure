@@ -3,7 +3,7 @@
 
 //global variables
 window.onload = function () {
-  var game = new Phaser.Game(960, 600, Phaser.AUTO, 'catventurerun');
+  var game = new Phaser.Game(960, 600, Phaser.CANVAS, 'catventurerun');
 
   // Game States
   game.state.add('boot', require('./states/boot'));
@@ -1355,8 +1355,9 @@ module.exports = Menu;
         //tanah
         this.ground = new Ground(this.game, 0, 490, 960, 108);
         this.game.add.existing(this.ground);
+        this.ground.scale.y=1.1;
         //gunung
-        this.gunung = this.game.add.tileSprite(0,0,960,600,'gunung');
+        this.gunung = this.game.add.tileSprite(0,270,960,231,'gunung');
         this.awan = this.game.add.tileSprite(0,55,960,246,'awan');
         this.gunung.autoScroll(-90,0);
         this.awan.autoScroll(-45,0);
@@ -1466,23 +1467,23 @@ module.exports = Menu;
         this.pohonkecilbackLvl = 880;
         this.obstacleLvl = 1250;
             //bushes
-        this.objGenerator = this.game.time.events.loop(700, this.generateBushes, this);
+        this.objGenerator = this.game.time.events.loop(800, this.generateBushes, this);
         this.objGenerator.timer.start();
             //pohonkecil
-        this.objGenerator2 = this.game.time.events.loop(650, this.generatePohonkecils, this);
+        this.objGenerator2 = this.game.time.events.loop(850, this.generatePohonkecils, this);
         this.objGenerator2.timer.start();
             //pohon
-        this.objGenerator3 = this.game.time.events.loop(700, this.generatePohons, this);
-        this.objGenerator3.timer.start();
+       // this.objGenerator3 = this.game.time.events.loop(700, this.generatePohons, this);
+       // this.objGenerator3.timer.start();
             //pohonkecilback
-        this.objGenerator4 = this.game.time.events.loop(400, this.generatePohonkecilbacks, this);
-        this.objGenerator4.timer.start();
+       // this.objGenerator4 = this.game.time.events.loop(400, this.generatePohonkecilbacks, this);
+       //this.objGenerator4.timer.start();
             //obstacle
         this.objGenerator5 = this.game.time.events.loop(/*1250*/Phaser.Timer.SECOND *999999999999999999999, this.generateObstacles, this);
         this.objGenerator5.timer.start();
             //pohonback
-        this.objGenerator6 = this.game.time.events.loop(600, this.generatePohonBacks, this);
-        this.objGenerator6.timer.start();
+       // this.objGenerator6 = this.game.time.events.loop(600, this.generatePohonBacks, this);
+        //this.objGenerator6.timer.start();
             //slime 
         this.slimeGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * /*8*/999999999999999999999, this.generateSlimes, this);
         this.slimeGenerator.timer.start(); 
@@ -1491,11 +1492,21 @@ module.exports = Menu;
         this.skellyGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * /*20*/999999999999999999999, this.generateSkelies, this);
         this.skellyGenerator.timer.start(); 
         this.skellyGenerator.delay = 1500;
+            //eee
+        this.pohonTile=this.game.add.tileSprite(0,0,2880,518,'pohonTile');
+        this.pohonTile.autoScroll(-600,0);
+        this.pohonkecilbackTile=this.game.add.tileSprite(0,245,2775,246,'pohonkecilbackTile');
+        this.pohonkecilbackTile.autoScroll(-500,0);
+        this.pohonbackTile=this.game.add.tileSprite(0,180,2692,311,'pohonbackTile');
+        this.pohonbackTile.autoScroll(-400,0);
+        
             //worldlayer
         this.game.world.bringToTop(this.gunung);
-        this.game.world.bringToTop(this.pohonbacks);
-        this.game.world.bringToTop(this.pohonkecilbacks);
-        this.game.world.bringToTop(this.pohons);
+        //this.game.world.bringToTop(this.pohonbacks);
+        this.game.world.bringToTop(this.pohonbackTile);
+        this.game.world.bringToTop(this.pohonkecilbackTile);
+        this.game.world.bringToTop(this.pohonTile);
+        //this.game.world.bringToTop(this.pohons);
         this.game.world.bringToTop(this.pohonkecils);
         this.game.world.bringToTop(this.player);
         this.game.world.bringToTop(this.pedang2);
@@ -1509,8 +1520,6 @@ module.exports = Menu;
         this.game.world.bringToTop(this.boom);
         this.game.world.bringToTop(this.instruction);
         
-        //this.spikeGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.timeRnd, this.generateSpikes, this);
-        //this.spikeGenerator.timer.start(); 
             
         //score
         this.gameScore = 0;
@@ -1531,6 +1540,7 @@ module.exports = Menu;
         this.defendPosition=false;
     },
     update: function() {
+       
         //debug
         
         if(this.slimeSpawnTimer>15){
@@ -1539,6 +1549,7 @@ module.exports = Menu;
                 this.slimeGenerator.delay-= 150;
             }
         }
+        
         if(this.skellySpawnTimer>25){
             this.skellySpawnTimer = 0;
             if(this.skellyGenerator.delay>600){
@@ -1571,7 +1582,7 @@ module.exports = Menu;
                 this.game.physics.arcade.collide(this.neko, obstacleGroup, this.deathHandler, null, this);
             }, this);
         //pedang collider
-            if(this.slash.animations.frame>0 && this.slash.animations.frame<18){
+            if(this.slash.animations.frame>0 && this.slash.animations.frame<16){
                 //slimes
                     this.slimes.forEach(function(slimeGroup) {
                     this.game.physics.arcade.overlap(this.slash, slimeGroup, this.slimedeathHandler, null, this);
@@ -1681,6 +1692,12 @@ module.exports = Menu;
             //obstacle
         this.markSfx.play();
         this.objGenerator5.timer.destroy();
+         //bushes
+        this.objGenerator = this.game.time.events.loop(750, this.generateBushes, this);
+        this.objGenerator.timer.start();
+            //pohonkecil
+        this.objGenerator2 = this.game.time.events.loop(800, this.generatePohonkecils, this);
+        this.objGenerator2.timer.start();
         
         this.objGenerator5 = this.game.time.events.loop(1250, this.generateObstacles, this);
         this.objGenerator5.timer.start();
@@ -1695,20 +1712,9 @@ module.exports = Menu;
         this.scoreText.alpha=1;
         this.instruction.destroy();
          //bushes
-        this.objGenerator = this.game.time.events.loop(700, this.generateBushes, this);
-        this.objGenerator.timer.start();
-            //pohonkecil
-        this.objGenerator2 = this.game.time.events.loop(650, this.generatePohonkecils, this);
-        this.objGenerator2.timer.start();
-            //pohon
-        this.objGenerator3 = this.game.time.events.loop(700, this.generatePohons, this);
-        this.objGenerator3.timer.start();
-            //pohonkecilback
-        this.objGenerator4 = this.game.time.events.loop(400, this.generatePohonkecilbacks, this);
-        this.objGenerator4.timer.start();
-            //pohonback
-        this.objGenerator6 = this.game.time.events.loop(600, this.generatePohonBacks, this);
-        this.objGenerator6.timer.start();
+    },
+    updatePohonkecil: function(){
+    
     },
     slashAct: function(){
         this.slash.animations.play('slashing',60,false);
@@ -1921,6 +1927,12 @@ module.exports = Menu;
         this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
         this.game.input.keyboard.removeKey(Phaser.Keyboard.Z);
         this.game.input.keyboard.removeKey(Phaser.Keyboard.X);
+        this.pohonbackTile.destroy();
+        this.pohonkecilbackTile.destroy();
+        this.pohonTile.destroy();
+        this.gunung.destroy();
+        this.ground.destroy();
+        this.awan.destroy();
         this.bushes.destroy();
         this.pohonkecils.destroy();
         this.pohonkecilbacks.destroy();
@@ -1998,6 +2010,9 @@ Preload.prototype = {
     this.load.image('badgeOkay', 'assets/badge_okay.png');
     this.load.image('badgeNotBad', 'assets/badge_notbad.png');
     this.load.image('credits', 'assets/credits.png');
+    this.load.image('pohonTile', 'assets/pohontile.png');
+    this.load.image('pohonkecilbackTile', 'assets/pohonkecilbacktile.png');
+    this.load.image('pohonbackTile', 'assets/pohonbacktile.png');
     this.load.spritesheet('neko', 'assets/neko_flat3.png', 128, 128, 2);
     this.load.spritesheet('neko_small', 'assets/neko_new_small.png', 65, 74, 2);
     this.load.spritesheet('scarf', 'assets/scarf_flat.png', 232, 121, 4);
